@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Accounts</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/script.js"></script>
+</head>
+<body>
+<header>
+    <h1>Accounts</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="customer.html">Customers</a>
+        <a href="transaction.html">Transactions</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Add Account</h2>
+    <form id="accountForm">
+        <input type="number" name="customer_id" placeholder="Customer ID" required>
+        <select name="account_type" required>
+            <option value="">Select Account Type</option>
+            <option value="SAVINGS">Savings</option>
+            <option value="CURRENT">Current</option>
+        </select>
+        <button type="submit">Create Account</button>
+    </form>
+</div>
+
+<script>
+document.getElementById("accountForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    await postData("/accounts/", data);
+    e.target.reset();
+    alert("Account created successfully!");
+});
+</script>
+</body>
+</html>
