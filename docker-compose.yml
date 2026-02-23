@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: mysql:8.0
+    container_name: bank_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Bindugr04@
+      MYSQL_DATABASE: bank_db
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  web:
+    build: .
+    container_name: bank_flask
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: mysql+pymysql://root:Bindugr04%40@db:3306/bank_db
+    volumes:
+      - .:/app
+
+volumes:
+  mysql_data:
